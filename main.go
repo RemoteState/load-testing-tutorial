@@ -109,6 +109,6 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	fmt.Printf("Server is running on port %d...\n", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), r)
+	fmt.Printf("Server is running on port %s...\n", port)
+	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 }
