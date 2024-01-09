@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+var Limitar map[string]int
+
 // Secret key for JWT
 var jwtKey = []byte("your-secret-key")
 
@@ -66,6 +68,12 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 // AuthenticatedHandler handles the authenticated API
 func AuthenticatedHandler(w http.ResponseWriter, r *http.Request) {
+	Limitar["login"]++
+
+	if Limitar["login"]%10 == 0 {
+		http.Error(w, "limiter error", http.StatusUnauthorized)
+		return
+	}
 	// Extract token from request headers
 	tokenString := r.Header.Get("Authorization")
 	if tokenString == "" {
@@ -97,6 +105,7 @@ func AuthenticatedHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	Limitar = make(map[string]int)
 	r := mux.NewRouter()
 
 	// Register handlers for each API

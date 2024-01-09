@@ -1,13 +1,12 @@
-k6_cloud_test:
-  name: k6 cloud test run
+k6_load_test:
+  name: k6 Load Test
   runs-on: ubuntu-latest
+
   steps:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Run k6 cloud test
-      uses: k6io/action@v0.1
+    - name: Run local k6 test
+      uses: grafana/k6-action@v0.2.0
       with:
-        filename: test.js
-        cloud: true
-        token: ${{ secrets.K6_CLOUD_API_TOKEN }}
+        filename: performanceTests/*.js
