@@ -12,4 +12,5 @@ jobs:
       - name: Run local k6 test
         uses: grafana/k6-action@v0.2.0
         with:
-          filename: performanceTests/*.js
+          script: |
+            k6 run performanceTests/*.js

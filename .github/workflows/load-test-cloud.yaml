@@ -11,6 +11,7 @@ jobs:
       - name: Run k6 cloud test
         uses: k6io/action@v0.1
         with:
-          filename: performanceTests/*.js
+          script: |
+            k6 run performanceTests/*.js
           cloud: true
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
