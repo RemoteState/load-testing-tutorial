@@ -6,6 +6,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -104,7 +105,10 @@ func main() {
 	r.HandleFunc("/authenticated", AuthenticatedHandler).Methods("GET")
 
 	// Start the server
-	port := 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	fmt.Printf("Server is running on port %d...\n", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), r)
 }
